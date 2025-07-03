@@ -94,6 +94,8 @@ def save_sampling_results(engine, results_df):
             with connection.begin():
                 # print(f"กำลังล้างข้อมูลเก่าในตาราง {DESTINATION_TABLE}...")
                 # connection.execute(text(f"TRUNCATE TABLE {DESTINATION_TABLE}"))
+                print(f"กำลังล้างข้อมูลเก่าในตาราง {DESTINATION_TABLE}...")
+                connection.execute(text(f"DELETE FROM {DESTINATION_TABLE} WHERE HouseholdType = 1"))
                 print(f"เตรียมบันทึกผลลัพธ์จำนวน {len(results_df)} รายการ...")
                 results_df.to_sql(
                     DESTINATION_TABLE,

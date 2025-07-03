@@ -71,6 +71,8 @@ def save_sampling_results(engine, results_df):
                 # หากต้องการล้างข้อมูลเก่าก่อนทุกครั้ง ให้ uncomment บรรทัดด้านล่าง
                 # print(f"\nกำลังล้างข้อมูลเก่าในตาราง {DESTINATION_TABLE}...")
                 # connection.execute(text(f"TRUNCATE TABLE dbo.[{DESTINATION_TABLE}]"))
+                print(f"กำลังล้างข้อมูลเก่าในตาราง {DESTINATION_TABLE}...")
+                connection.execute(text(f"DELETE FROM {DESTINATION_TABLE} WHERE HouseholdType = 2"))
                 print(f"เตรียมบันทึกผลลัพธ์ทั้งหมดจำนวน {len(results_df)} รายการ...")
                 results_df.to_sql(DESTINATION_TABLE, con=connection, if_exists='append', index=False, dtype=dtype_mapping, chunksize=1000)
         print("บันทึกข้อมูลทั้งหมดเรียบร้อยแล้ว!")
